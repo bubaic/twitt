@@ -1,0 +1,36 @@
+.navbar {
+	top: 0;
+	width: 100%;
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: #fafafa;
+	padding: 10pt 8.33%;
+	box-shadow: $shadow-md;
+	z-index: 9999;
+
+	&--brand {
+		font-size: 20px;
+		font-weight: 700;
+	}
+
+	&--menu {
+		list-style: none;
+		display: flex;
+
+		li {
+			margin-left: 10pt;
+
+			a {
+				text-decoration: none;
+				padding-bottom: 1pt;
+				color: $c3;
+
+				&:hover {
+					border-bottom: 1pt solid currentColor;
+				}
+			}
+		}
+	}
+}

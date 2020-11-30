@@ -1,3 +1,119 @@
+/* links */
+/* dark */
+/* line 1, ../../Work/django/twitter_clone/static/sass/_layout.scss */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* line 7, ../../Work/django/twitter_clone/static/sass/_layout.scss */
+html,
+body {
+  background: #D6D2D0;
+  font-family: "google sans", sans-serif;
+  letter-spacing: 0.2vmin;
+}
+
+/* line 14, ../../Work/django/twitter_clone/static/sass/_layout.scss */
+main {
+  max-width: 83.33%;
+  margin: 5em auto;
+  margin-bottom: 10pt;
+}
+
+/* line 20, ../../Work/django/twitter_clone/static/sass/_layout.scss */
+#tweets, #create {
+  display: grid;
+  border-radius: 3pt;
+  background: transparent;
+  row-gap: 10pt;
+  max-width: 75%;
+  margin: auto;
+}
+
+/* line 32, ../../Work/django/twitter_clone/static/sass/_layout.scss */
+#tweets .tweet {
+  box-shadow: 0 0pt 4pt #50505040;
+  background: #EBEBEB;
+  padding: 15pt 20pt;
+}
+
+/* line 38, ../../Work/django/twitter_clone/static/sass/_layout.scss */
+#tweets .tweet p {
+  font-family: "alegreya sans";
+  margin-bottom: 10pt;
+}
+
+/* line 1, ../../Work/django/twitter_clone/static/sass/_navbar.scss */
+.navbar {
+  top: 0;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafafa;
+  padding: 10pt 8.33%;
+  box-shadow: 0 0pt 8pt #50505040;
+  z-index: 9999;
+}
+
+/* line 13, ../../Work/django/twitter_clone/static/sass/_navbar.scss */
+.navbar--brand {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* line 18, ../../Work/django/twitter_clone/static/sass/_navbar.scss */
+.navbar--menu {
+  list-style: none;
+  display: flex;
+}
+
+/* line 22, ../../Work/django/twitter_clone/static/sass/_navbar.scss */
+.navbar--menu li {
+  margin-left: 10pt;
+}
+
+/* line 25, ../../Work/django/twitter_clone/static/sass/_navbar.scss */
+.navbar--menu li a {
+  text-decoration: none;
+  padding-bottom: 1pt;
+  color: #B214BF;
+}
+
+/* line 30, ../../Work/django/twitter_clone/static/sass/_navbar.scss */
+.navbar--menu li a:hover {
+  border-bottom: 1pt solid currentColor;
+}
+
+/* line 1, ../../Work/django/twitter_clone/static/sass/_button.scss */
+button {
+  max-width: 200pt;
+  font-size: 10pt;
+  text-transform: uppercase;
+  word-wrap: break-word;
+  background: #1C1E26;
+  margin-right: auto;
+  font-weight: 600;
+  outline: 0;
+  border: 0;
+  padding: 4pt 8pt;
+  color: #EBEBEB;
+  border-radius: 3pt;
+}
+
+/* line 16, ../../Work/django/twitter_clone/static/sass/_button.scss */
+button:hover {
+  background: #474c61;
+}
+
+/* line 19, ../../Work/django/twitter_clone/static/sass/_button.scss */
+button:active {
+  background: #3c4152;
+}
+
 /* zoomed entry */
 @keyframes zoomIn {
   from {

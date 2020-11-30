@@ -9,3 +9,6 @@ class Tweet(models.Model):
     """
     content = models.TextField(blank=True, null=True)
     image = models.FileField(upload_to='media/tweets/', verbose_name='tweet image', blank=True, null=True)
+
+    def __str__(self):
+        return str(self.id)
