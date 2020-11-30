@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "style.css",
+	"sources": [
+		"../sass/style.scss",
+		"../sass/_anime.scss"
+	],
+	"sourcesContent": [
+		"@import \"anime\";",
+		"/* zoomed entry */\n@keyframes zoomIn {\n\tfrom {\n\t\topacity: 0;\n\t\ttransform: scale3d(0.3, 0.3, 0.3);\n\t}\n\n\t50% {\n\t\topacity: 1;\n\t}\n}\n\n/* fades in to screen */\n@keyframes fadeIn {\n\tfrom {\n\t\topacity: 0;\n\t}\n\n\t100% {\n\t\topacity: 1;\n\t}\n}\n\n/* spin */\n@keyframes spin {\n\tfrom {\n\t\ttransform: rotateY(0deg);\n\t}\n\tto {\n\t\ttransform: rotateY(360deg);\n\t}\n}\n"
+	],
+	"names": [],
+	"mappings": "ACAA,kBAAkB;AAClB,UAAU,CAAV,MAAU;EACT,IAAI;IACH,OAAO,EAAE,CAAC;IACV,SAAS,EAAE,sBAAsB;;EAGlC,GAAG;IACF,OAAO,EAAE,CAAC;;;;AAIZ,wBAAwB;AACxB,UAAU,CAAV,MAAU;EACT,IAAI;IACH,OAAO,EAAE,CAAC;;EAGX,IAAI;IACH,OAAO,EAAE,CAAC;;;;AAIZ,UAAU;AACV,UAAU,CAAV,IAAU;EACT,IAAI;IACH,SAAS,EAAE,aAAa;;EAEzB,EAAE;IACD,SAAS,EAAE,eAAe"
+}
