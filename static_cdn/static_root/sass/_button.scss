@@ -1,0 +1,22 @@
+button {
+	max-width: 200pt;
+	font-size: 10pt;
+	text-transform: uppercase;
+	word-wrap: break-word;
+	// height: 35pt;
+	background: $c4;
+	margin-right: auto;
+	font-weight: 600;
+	outline: 0;
+    border: 0;
+    padding: 4pt 8pt;
+    color: $c1;
+    border-radius: 3pt;
+
+    &:hover {
+        background: lighten($c4, 20%);
+    }
+    &:active {
+        background: lighten($c4, 15%);
+    }
+}

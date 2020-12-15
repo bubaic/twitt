@@ -1,4 +1,11 @@
-1. users
+1. tweets
+    - ~~create~~
+        - ~~text~~
+        - img
+    - ~~delete~~
+    - retweet
+    - likes
+2. users
     - register
     - login
     - profile
@@ -8,10 +15,4 @@
     - feed
         - users page
         - follow
-2. tweets
-    - create
-        - text
-        - img
-    - delete
-    - retweet
 3. follows

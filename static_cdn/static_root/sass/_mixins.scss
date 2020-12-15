@@ -1,0 +1,16 @@
+@mixin delay($rule, $number, $value) {
+	@for $i from 1 to ($number + 1) {
+		&:nth-child(#{$i}) {
+			-webkit-#{$rule}-delay: (#{$i * $value});
+			#{$rule}-delay: (#{$i * $value});
+		}
+	}
+}
+
+/*
+:: how to use ::
+
+  .results div{
+    @include delay(animation, 8, 0.25s);
+  }
+*/

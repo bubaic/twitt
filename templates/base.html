@@ -8,14 +8,25 @@
     <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
+    {% include 'tweets/preloads.html' %}
+    {% include 'tweets/css.html' %}
+
     <title>
         Twitter Clone |{% block title %}{% endblock %}
     </title>
 </head>
 <body>
+<noscript>
+    <strong>
+        We're sorry but twitt_fe doesn't work properly without JavaScript enabled. Please enable it to
+        continue.
+    </strong>
+</noscript>
 {% include 'components/navbar.html' %}
 
 {% block body %}
 {% endblock %}
+
+{% include 'tweets/js.html' %}
 </body>
 </html>

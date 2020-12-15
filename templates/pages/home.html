@@ -1,0 +1,204 @@
+{% extends 'base.html' %}{% load static %}{% block title %} Home {% endblock %}
+{% block body %}
+<main>
+    <!--
+        <div id="create">
+            <form action="/tweet/create" class="form" id="create-form" method="POST">
+                {% csrf_token %}
+                <div id="tweet-errors"></div>
+                <input name="next" type="hidden" value="/"/>
+                <textarea
+                        class="form-control"
+                        name="content"
+                        placeholder="what's in your mind"
+                        required
+                        rows="6"
+                ></textarea>
+                <button>Tweet</button>
+            </form>
+        </div>
+    -->
+    <!-- <div id="tweets">Loading...</div>-->
+
+    <!-- rendered using vueJS -->
+    <div id="app"></div>
+
+</main>
+
+<!--
+<script src="{% static 'js/cookies.js' %}"></script>
+<script>
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== "") {
+			const cookies = document.cookie.split(";");
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === name + "=") {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+
+	let tweets = "";
+	const tweetsEl = document.getElementById("tweets");
+	const createFormEl = document.getElementById("create-form");
+	const errDiv = document.getElementById("tweet-errors");
+
+	const handleTweetErrors = (m, d) => {
+		if (d === true) {
+			errDiv.innerText = m;
+		} else {
+			errDiv.innerText = null;
+		}
+	};
+
+	const handleTweetSubmission = (e) => {
+		e.preventDefault();
+		const formData = new FormData(e.target);
+		const url = e.target.getAttribute("action") + '/';
+		const method = e.target.getAttribute("method");
+		const xhr = new XMLHttpRequest();
+
+		xhr.open(method, url);
+		xhr.setRequestHeader("HTTP_SET_REQUESTED_HEADER", "XMLHttpRequest");
+		xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+		xhr.onload = () => {
+			if (xhr.status === 201) {
+				handleTweetErrors(null, false);
+				const newTweet = formattedTweet(JSON.parse(xhr.response));
+				const HTML = tweetsEl.innerHTML;
+				tweetsEl.innerHTML = newTweet + HTML;
+				e.target.reset();
+			} else if (xhr.status === 400) {
+				const err = JSON.parse(xhr.response).content[0];
+				if (err) {
+					handleTweetErrors(err, true);
+				} else {
+					handleTweetErrors(xhr.statusText, false);
+				}
+			} else if (xhr.status === 401) {
+				alert(xhr.status + ": " + xhr.statusText || xhr.responseText);
+				window.location.href = "/login";
+			} else if (xhr.status === 403) {
+				alert(xhr.status + ": " + xhr.statusText || xhr.responseText);
+				window.location.href = "/login";
+			} else if (xhr.status === 500) {
+				alert(xhr.status + ": " + xhr.statusText || xhr.responseText);
+			}
+		};
+		xhr.send(formData);
+
+		/* fetch(url, {
+			headers: {
+				HTTP_SET_REQUESTED_HEADER: "XMLHttpRequest",
+				"X-Requested-With": "XMLHttpRequest",
+			},
+			method: method,
+			body: formData,
+		})
+			.then((r) => {
+				r.json();
+			})
+			.then((data) => {
+				console.log(data);
+			}); */
+	};
+
+	createFormEl.addEventListener("submit", handleTweetSubmission);
+
+	const handleActions = (tid, count, action) => {
+		console.log("id ", tid, "count ", count);
+		const url = "/api/tweets/action";
+		const method = "POST";
+		const data = JSON.stringify({
+			id: tid,
+			actions: action,
+		});
+		const xhr = new XMLHttpRequest();
+		const csrftoken = getCookie("csrftoken");
+
+		xhr.open(method, url);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("HTTP_SET_REQUESTED_HEADER", "XMLHttpRequest");
+		xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+		xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		xhr.onload = () => {
+			loadTweets(tweetsEl);
+		};
+		xhr.send(data);
+
+		return;
+	};
+
+	const likeBtn = (t) => {
+		return (
+			"<button onclick=handleActions(" +
+			t.id +
+			"," +
+			t.likes +
+			",'like')>" +
+			t.likes +
+			" Like</button>"
+		);
+	};
+
+	const dislikeBtn = (t) => {
+		return (
+			"<button onclick=handleActions(" +
+			t.id +
+			"," +
+			t.likes +
+			",'dislike')>" +
+			"Disike</button>"
+		);
+	};
+
+	const retweetBtn = (t) => {
+		return (
+			"<button onclick=handleActions(" +
+			t.id +
+			"," +
+			t.likes +
+			",'retweet')>" +
+			"Retweet</button>"
+		);
+	};
+
+	const formattedTweet = (t) => {
+		const format = `<div class="tweet" id="tweet-${t.id}">
+	           <h6 style="float:right">${t.created}</h6>
+	           <p>${t.content}</p>
+	           ${likeBtn(t)} ${dislikeBtn(t)} ${retweetBtn(t)}
+	       </div>`;
+		return format;
+	};
+
+	function loadTweets(el) {
+		fetch("/api/tweets")
+			.then((r) => r.json())
+			.then((data) => {
+				const lists = data;
+
+				for (const i in lists) {
+					const tObj = lists[i];
+					tweets += formattedTweet(tObj);
+				}
+				tweetsEl.innerHTML = tweets;
+			});
+	}
+	
+	document.addEventListener("DOMContentLoaded", () => {
+		loadTweets(tweetsEl);
+	});
+
+
+
+
+</script>
+-->
+{% endblock %}
