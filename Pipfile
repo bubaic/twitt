@@ -6,9 +6,10 @@ name = "pypi"
 [packages]
 django = "*"
 django-cors-headers = "*"
+djangorestframework = "*"
 
 [dev-packages]
 pylint = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

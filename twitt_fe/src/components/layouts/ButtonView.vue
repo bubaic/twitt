@@ -1,6 +1,6 @@
 <template>
 	<span v-for="role in roles" :key="role">
-		<button :role="role" :class="role" @click="handleClick(role)">
+		<button :role="role" :class="[role]" @click="handleActions(role)">
 			<span v-if="role === 'like'">{{ likes }}</span>
 			{{ role }}
 		</button>
@@ -9,13 +9,42 @@
 </template>
 
 <script>
+	import { computed } from "vue";
+	import { useStore } from "vuex";
+
 	export default {
-		props: ["roles", "likes"],
-		emits: ["handleAction"],
-		methods: {
-			handleClick: function(role) {
-				this.$emit("handleAction", role);
-			},
+		props: ["roles", "likes", "tweetID", "tweetContent"],
+		setup: (props) => {
+			let likes = props.likes;
+			const data = { id: props.tweetID },
+				store = useStore();
+
+			const actionData = (role) => {
+				data["actions"] = role;
+
+				if (role === "like") {
+					likes += 1;
+					console.log(likes);
+				} else if (role === "dislike") {
+					if (likes < 1) {
+						likes = 0;
+					} else {
+						likes -= 1;
+					}
+					console.log(likes);
+				} else if (role === "retweet") {
+					console.log("it's a retweet");
+					data["content"] = props.tweetContent;
+				}
+
+				return data;
+			};
+
+			function handleActions(role) {
+				store.dispatch("setAction", actionData(role));
+			}
+
+			return { handleActions, likes };
 		},
 	};
 </script>
@@ -59,5 +88,21 @@
 		&:hover {
 			background: lighten(#5f9f3f, 10%);
 		}
+	}
+
+	/* media query */
+	@media screen and (min-width: 320px) and (max-width: 420px) {
+		button {
+			padding: 6pt;
+			font-size: 8.5pt;
+		}
+	}
+
+	// if liked
+	.liked {
+		background: red;
+	}
+	.notliked {
+		background: transparent;
 	}
 </style>

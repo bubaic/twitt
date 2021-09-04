@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { lookup } from "../helper";
 
 export default createStore({
 	state: () => {
@@ -13,63 +14,31 @@ export default createStore({
 		hasTweets: (state) => {
 			return state.tweets && state.tweets.length > 0;
 		},
+		countLikes: (state) => {
+			return state.tweets.likes;
+		},
 	},
 	mutations: {
 		loadTweets: (state, payload) => {
 			state.tweets = payload;
-			// console.log(state.tweets.length);
 		},
 		addNewTweet: (state, payload) => {
-			// const tweets = [...state.tweets];
-			// tweets.unshift(payload);
-			// state.tweets = tweets;
-
 			state.tweets.unshift(payload);
-			// console.log(state.tweets);
-			// console.log(state.tweets.length);
 		},
 	},
 	actions: {
-		lookup: async (_, payload) => {
-			const method = payload.method,
-				url = payload.endpoint,
-				body = payload.body;
-
-			console.log("payload\n", payload);
-
-			const response = await fetch(`http://localhost:8000/api/${url}`, {
-					method: method,
-					body: JSON.stringify(body),
-				}),
-				data = await response.json();
-
-			if (!response.ok) {
-				throw new Error(response.message || "Unable to fetch");
-			}
-
-			console.log("data from lookup", data);
-
-			return data;
-		},
-
 		createTweet: async (ctx, payload) => {
-			const newTweet = { content: payload.content },
-				data = await ctx.dispatch("lookup", {
-					endpoint: "tweets/create/",
-					method: "POST",
-					body: newTweet,
-				});
-
-			console.log("response data-->\n", data);
+			const data = await lookup("POST", "tweets/create/", payload),
+				newTweet = {
+					id: data.id,
+					content: data.content,
+				};
 
 			ctx.commit("addNewTweet", newTweet);
 		},
 
 		setTweets: async (ctx, payload) => {
-			const data = await ctx.dispatch("lookup", {
-					endpoint: "tweets/",
-					method: "GET",
-				}),
+			const data = await lookup("GET", "tweets/"),
 				allTweets = [];
 
 			for (const i in data) {
@@ -79,11 +48,23 @@ export default createStore({
 					likes: data[i].likes,
 					is_retweet: data[i].is_retweet,
 					parent: data[i].parent,
+					timestamp: data[i].created,
 				};
 				allTweets.push(tweet);
 			}
 
 			ctx.commit("loadTweets", allTweets);
+		},
+
+		setAction: async (ctx, payload) => {
+			const data = {
+					id: payload.id,
+					actions: payload.actions,
+					content: payload.content,
+				},
+				response = await lookup("POST", "tweets/action/", data);
+
+			console.log(response);
 		},
 	},
 

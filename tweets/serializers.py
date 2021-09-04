@@ -22,30 +22,40 @@ class SerializeActions(serializers.Serializer):
 
 class SerializeTweetCreation(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField(read_only=True)
+    created = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Tweet
-        fields = ['id', 'content', 'likes']
+        fields = ['id', 'content', 'likes', 'created']
 
     @staticmethod
     def get_likes(obj):
         return obj.likes.count()
 
     @staticmethod
+    def get_created(obj):
+        return obj.created
+
+    @staticmethod
     def validate_content(value):
         if len(value) > TWEET_MAX_LENGTH:
-            raise serializers.ValidationError('This tweet exceeds 140 characters')
+            raise serializers.ValidationError(
+                'This tweet exceeds 140 characters')
         return value
 
 
 class SerializeTweet(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField(read_only=True)
-    parent = SerializeTweetCreation(read_only=True)
+    created = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Tweet
-        fields = ['id', 'content', 'likes', 'is_retweet', 'parent']
+        fields = ['id', 'content', 'likes', 'is_retweet', 'parent', 'created']
 
     @staticmethod
     def get_likes(obj):
         return obj.likes.count()
+
+    @staticmethod
+    def get_created(obj):
+        return obj.created

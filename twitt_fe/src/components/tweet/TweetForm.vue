@@ -18,15 +18,23 @@
 </template>
 
 <script>
+	import { ref } from "vue";
+	import { useStore } from "vuex";
+
 	export default {
-		data: function() {
-			return { content: "" };
-		},
-		methods: {
-			submitData: function() {
-				this.$store.dispatch("createTweet", { content: this.content });
+		setup: () => {
+			const store = useStore(),
+				content = ref("");
+
+			async function submitData() {
+				try {
+					await store.dispatch("createTweet", { content: content.value });
+				} catch (e) {
+					console.log(e || "Something went wrong!");
+				}
 				this.content = "";
-			},
+			}
+			return { content, submitData };
 		},
 	};
 </script>
@@ -39,7 +47,7 @@
 		display: grid;
 		border-radius: 3pt;
 		row-gap: 10pt;
-		max-width: 75%;
+		max-width: 83.33%;
 		margin: auto;
 
 		textarea {
@@ -54,6 +62,12 @@
 			float: right;
 			margin: 8pt;
 			background: #1c1e26;
+		}
+	}
+
+		@media screen and (min-width: 320px) and (max-width: 420px) {
+		#create {
+			max-width: 250pt;
 		}
 	}
 </style>

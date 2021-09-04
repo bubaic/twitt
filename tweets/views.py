@@ -9,67 +9,6 @@ from .serializers import SerializeTweet, SerializeActions, SerializeTweetCreatio
 
 ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
-'''
-views below are with pure Django
-'''
-
-
-def home_view(request):
-    return render(request, "pages/home.html", context={}, status=200)
-
-
-# def tweet_detail_view_django(req, tweet_id):
-#     data = {'id': tweet_id}
-#     status = 200
-#
-#     try:
-#         obj = Tweet.objects.get(tweet_id)
-#         data['content'] = obj.content
-#     except:
-#         data['message'] = "Not Found!"
-#         status = 404
-#
-#     return JsonResponse(data, status=status)
-#
-#
-# def tweet_list_view_django(req):
-#     qs = Tweet.objects.all()
-#     tweet_list = [x.serialize() for x in qs]
-#     data = {
-#         'response': tweet_list
-#     }
-#     return JsonResponse(data)
-#
-#
-# def tweet_create_view_django(request, *args, **kwargs):
-#     """
-#     Django create view
-#     """
-#     user = request.user
-#     form = TweetForm(request.POST or None)
-#     next_url = request.POST.get('next') or None
-#
-#     if not request.user.is_authenticated:
-#         user = None
-#         if request.is_ajax():
-#             return JsonResponse({}, status=401)
-#         return redirect(settings.LOGIN_URL)
-#
-#     if form.is_valid():
-#         obj = form.save(commit=False)
-#         obj.user = user
-#         obj.save()
-#         if request.is_ajax():
-#             return JsonResponse(obj.serialize(), status=201)  # 201 --> created
-#         if next_url is not None and is_safe_url(next_url, ALLOWED_HOSTS):
-#             return redirect(next_url)
-#         form = TweetForm()
-#
-#     if form.errors:
-#         if request.is_ajax():
-#             return JsonResponse(form.errors, status=400)
-#     return render(request, 'components/form.html', {'form': form})
-#
 
 '''
 views below are with Django REST Framework
@@ -82,7 +21,7 @@ def tweet_create_view(request, *args, **kwargs):
     """
     DRF create view
     """
-    serializer = SerializeTweetCreation(data=request.POST)
+    serializer = SerializeTweetCreation(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)
         return Response(serializer.data, status=201)
@@ -165,3 +104,66 @@ def tweet_actions_view(request, *args, **kwargs):
             serializer = SerializeTweet(new_tweet)
             return Response(serializer.data, status=201)
     return Response({"message": "liked"}, status=200)
+
+
+'''
+views below are with pure Django
+'''
+
+
+def home_view(request):
+    return render(request, "pages/home.html", context={}, status=200)
+
+
+# def tweet_detail_view_django(req, tweet_id):
+#     data = {'id': tweet_id}
+#     status = 200
+#
+#     try:
+#         obj = Tweet.objects.get(tweet_id)
+#         data['content'] = obj.content
+#     except:
+#         data['message'] = "Not Found!"
+#         status = 404
+#
+#     return JsonResponse(data, status=status)
+#
+#
+# def tweet_list_view_django(req):
+#     qs = Tweet.objects.all()
+#     tweet_list = [x.serialize() for x in qs]
+#     data = {
+#         'response': tweet_list
+#     }
+#     return JsonResponse(data)
+#
+#
+# def tweet_create_view_django(request, *args, **kwargs):
+#     """
+#     Django create view
+#     """
+#     user = request.user
+#     form = TweetForm(request.POST or None)
+#     next_url = request.POST.get('next') or None
+#
+#     if not request.user.is_authenticated:
+#         user = None
+#         if request.is_ajax():
+#             return JsonResponse({}, status=401)
+#         return redirect(settings.LOGIN_URL)
+#
+#     if form.is_valid():
+#         obj = form.save(commit=False)
+#         obj.user = user
+#         obj.save()
+#         if request.is_ajax():
+#             return JsonResponse(obj.serialize(), status=201)  # 201 --> created
+#         if next_url is not None and is_safe_url(next_url, ALLOWED_HOSTS):
+#             return redirect(next_url)
+#         form = TweetForm()
+#
+#     if form.errors:
+#         if request.is_ajax():
+#             return JsonResponse(form.errors, status=400)
+#     return render(request, 'components/form.html', {'form': form})
+#

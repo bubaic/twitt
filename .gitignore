@@ -139,9 +139,10 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+
 .DS_Store
-node_modules
-/dist
+node_modules/
+dist/
 
 
 # local env files

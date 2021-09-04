@@ -1,27 +1,27 @@
 {% extends 'base.html' %}{% load static %}{% block title %} Home {% endblock %}
 {% block body %}
 <main>
-    <!--
-        <div id="create">
-            <form action="/tweet/create" class="form" id="create-form" method="POST">
-                {% csrf_token %}
-                <div id="tweet-errors"></div>
-                <input name="next" type="hidden" value="/"/>
-                <textarea
-                        class="form-control"
-                        name="content"
-                        placeholder="what's in your mind"
-                        required
-                        rows="6"
-                ></textarea>
-                <button>Tweet</button>
-            </form>
-        </div>
-    -->
-    <!-- <div id="tweets">Loading...</div>-->
+		<!--
+				<div id="create">
+						<form action="/tweet/create" class="form" id="create-form" method="POST">
+								{% csrf_token %}
+								<div id="tweet-errors"></div>
+								<input name="next" type="hidden" value="/"/>
+								<textarea
+												class="form-control"
+												name="content"
+												placeholder="what's in your mind"
+												required
+												rows="6"
+								></textarea>
+								<button>Tweet</button>
+						</form>
+				</div>
+		-->
+		<!-- <div id="tweets">Loading...</div>-->
 
-    <!-- rendered using vueJS -->
-    <div id="app"></div>
+		<!-- rendered using vueJS -->
+		<div id="app"></div>
 
 </main>
 
